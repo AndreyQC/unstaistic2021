@@ -1,0 +1,24 @@
+{
+	"name": "DestinationDataset_1o1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "unstatisticsqlsaapdevlinkedservice",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_table": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "task",
+			"table": {
+				"value": "@dataset().cw_table",
+				"type": "Expression"
+			}
+		}
+	}
+}
