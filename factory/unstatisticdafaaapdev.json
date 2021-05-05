@@ -1,0 +1,9 @@
+{
+	"name": "unstatisticdafaaapdev",
+	"location": "northeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "66709300-d6b9-49a2-a3d2-99c4f533c55d",
+		"tenantId": "b41b72d0-4e9f-4c26-8a69-f949f367c91d"
+	}
+}
