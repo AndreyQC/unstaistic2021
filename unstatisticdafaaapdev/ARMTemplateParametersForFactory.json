@@ -10,6 +10,9 @@
 		},
 		"unstatisticsqlsaapdevlinkedservice_connectionString": {
 			"value": ""
+		},
+		"unstatisticstac_connectionString": {
+			"value": ""
 		}
 	}
 }
