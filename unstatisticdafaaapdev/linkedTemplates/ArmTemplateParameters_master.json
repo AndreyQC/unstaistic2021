@@ -14,6 +14,12 @@
 		"unstatisticstac_connectionString": {
 			"value": ""
 		},
+		"unstatistickyvtapp_properties_typeProperties_baseUrl": {
+			"value": "https://unstatistickyvtappdev.vault.azure.net/"
+		},
+		"msbiazurelinkedservicekeyvault_properties_typeProperties_connectionString_secretName": {
+			"value": "unstatisticdwh-connectionstring"
+		},
 		"containerUri": {
 			"value": ""
 		},

@@ -18,6 +18,14 @@
 		"unstatisticstac_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'unstatisticstac'"
+		},
+		"unstatistickyvtapp_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://unstatistickyvtappdev.vault.azure.net/"
+		},
+		"msbiazurelinkedservicekeyvault_properties_typeProperties_connectionString_secretName": {
+			"type": "string",
+			"defaultValue": "unstatisticdwh-connectionstring"
 		}
 	},
 	"variables": {
@@ -59,6 +67,19 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('unstatisticstac_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/unstatistickyvtapp')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureKeyVault",
+				"typeProperties": {
+					"baseUrl": "[parameters('unstatistickyvtapp_properties_typeProperties_baseUrl')]"
 				}
 			},
 			"dependsOn": []
@@ -122,7 +143,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/src_csv_countries')]",
+			"name": "[concat(parameters('factoryName'), '/ds_src_csv_metadata')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -135,8 +156,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "ISOcountries.csv",
-						"folderPath": "CrimeStat.Source.Countries",
+						"folderPath": "CrimeStat.Source.UNCrime",
 						"container": "unstatistic-sourcefiles"
 					},
 					"columnDelimiter": ",",
@@ -144,52 +164,7 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": [
-					{
-						"name": "name",
-						"type": "String"
-					},
-					{
-						"name": "alpha-2",
-						"type": "String"
-					},
-					{
-						"name": "alpha-3",
-						"type": "String"
-					},
-					{
-						"name": "country-code",
-						"type": "String"
-					},
-					{
-						"name": "iso_3166-2",
-						"type": "String"
-					},
-					{
-						"name": "region",
-						"type": "String"
-					},
-					{
-						"name": "sub-region",
-						"type": "String"
-					},
-					{
-						"name": "intermediate-region",
-						"type": "String"
-					},
-					{
-						"name": "region-code",
-						"type": "String"
-					},
-					{
-						"name": "sub-region-code",
-						"type": "String"
-					},
-					{
-						"name": "intermediate-region-code",
-						"type": "String"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
@@ -289,285 +264,21 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/src_scv_population')]",
+			"name": "[concat(parameters('factoryName'), '/dst_sql_dummy')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "unstatisticstac",
+					"referenceName": "unstatisticsqlsaapdevlinkedservice",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "WorldBankPopulation.csv",
-						"folderPath": "CrimeStat.Source.WorldBank",
-						"container": "unstatistic-sourcefiles"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"name": "Country Name",
-						"type": "String"
-					},
-					{
-						"name": "Country Code",
-						"type": "String"
-					},
-					{
-						"name": "Indicator Name",
-						"type": "String"
-					},
-					{
-						"name": "Indicator Code",
-						"type": "String"
-					},
-					{
-						"name": "1960",
-						"type": "String"
-					},
-					{
-						"name": "1961",
-						"type": "String"
-					},
-					{
-						"name": "1962",
-						"type": "String"
-					},
-					{
-						"name": "1963",
-						"type": "String"
-					},
-					{
-						"name": "1964",
-						"type": "String"
-					},
-					{
-						"name": "1965",
-						"type": "String"
-					},
-					{
-						"name": "1966",
-						"type": "String"
-					},
-					{
-						"name": "1967",
-						"type": "String"
-					},
-					{
-						"name": "1968",
-						"type": "String"
-					},
-					{
-						"name": "1969",
-						"type": "String"
-					},
-					{
-						"name": "1970",
-						"type": "String"
-					},
-					{
-						"name": "1971",
-						"type": "String"
-					},
-					{
-						"name": "1972",
-						"type": "String"
-					},
-					{
-						"name": "1973",
-						"type": "String"
-					},
-					{
-						"name": "1974",
-						"type": "String"
-					},
-					{
-						"name": "1975",
-						"type": "String"
-					},
-					{
-						"name": "1976",
-						"type": "String"
-					},
-					{
-						"name": "1977",
-						"type": "String"
-					},
-					{
-						"name": "1978",
-						"type": "String"
-					},
-					{
-						"name": "1979",
-						"type": "String"
-					},
-					{
-						"name": "1980",
-						"type": "String"
-					},
-					{
-						"name": "1981",
-						"type": "String"
-					},
-					{
-						"name": "1982",
-						"type": "String"
-					},
-					{
-						"name": "1983",
-						"type": "String"
-					},
-					{
-						"name": "1984",
-						"type": "String"
-					},
-					{
-						"name": "1985",
-						"type": "String"
-					},
-					{
-						"name": "1986",
-						"type": "String"
-					},
-					{
-						"name": "1987",
-						"type": "String"
-					},
-					{
-						"name": "1988",
-						"type": "String"
-					},
-					{
-						"name": "1989",
-						"type": "String"
-					},
-					{
-						"name": "1990",
-						"type": "String"
-					},
-					{
-						"name": "1991",
-						"type": "String"
-					},
-					{
-						"name": "1992",
-						"type": "String"
-					},
-					{
-						"name": "1993",
-						"type": "String"
-					},
-					{
-						"name": "1994",
-						"type": "String"
-					},
-					{
-						"name": "1995",
-						"type": "String"
-					},
-					{
-						"name": "1996",
-						"type": "String"
-					},
-					{
-						"name": "1997",
-						"type": "String"
-					},
-					{
-						"name": "1998",
-						"type": "String"
-					},
-					{
-						"name": "1999",
-						"type": "String"
-					},
-					{
-						"name": "2000",
-						"type": "String"
-					},
-					{
-						"name": "2001",
-						"type": "String"
-					},
-					{
-						"name": "2002",
-						"type": "String"
-					},
-					{
-						"name": "2003",
-						"type": "String"
-					},
-					{
-						"name": "2004",
-						"type": "String"
-					},
-					{
-						"name": "2005",
-						"type": "String"
-					},
-					{
-						"name": "2006",
-						"type": "String"
-					},
-					{
-						"name": "2007",
-						"type": "String"
-					},
-					{
-						"name": "2008",
-						"type": "String"
-					},
-					{
-						"name": "2009",
-						"type": "String"
-					},
-					{
-						"name": "2010",
-						"type": "String"
-					},
-					{
-						"name": "2011",
-						"type": "String"
-					},
-					{
-						"name": "2012",
-						"type": "String"
-					},
-					{
-						"name": "2013",
-						"type": "String"
-					},
-					{
-						"name": "2014",
-						"type": "String"
-					},
-					{
-						"name": "2015",
-						"type": "String"
-					},
-					{
-						"name": "2016",
-						"type": "String"
-					},
-					{
-						"name": "2017",
-						"type": "String"
-					},
-					{
-						"name": "2018",
-						"type": "String"
-					}
-				]
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
+				"[concat(variables('factoryId'), '/linkedServices/unstatisticsqlsaapdevlinkedservice')]"
 			]
 		},
 		{
@@ -879,58 +590,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/src_csv_uncrime')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "unstatisticstac",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"Container": {
-						"type": "string",
-						"defaultValue": "unstatistic-sourcefile"
-					},
-					"Path": {
-						"type": "string",
-						"defaultValue": "CrimeStat.Source.UNCrime"
-					},
-					"FileName": {
-						"type": "string",
-						"defaultValue": "burglary.csv"
-					}
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": {
-							"value": "@dataset().FileName",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().Path",
-							"type": "Expression"
-						},
-						"container": {
-							"value": "@dataset().Container",
-							"type": "Expression"
-						}
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/dst_sql_uncrime_untyped')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1004,21 +663,477 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dst_sql_dummy')]",
+			"name": "[concat(parameters('factoryName'), '/src_csv_countries')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "unstatisticsqlsaapdevlinkedservice",
+					"referenceName": "unstatisticstac",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [],
-				"typeProperties": {}
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "ISOcountries.csv",
+						"folderPath": "CrimeStat.Source.Countries",
+						"container": "unstatistic-sourcefiles"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "name",
+						"type": "String"
+					},
+					{
+						"name": "alpha-2",
+						"type": "String"
+					},
+					{
+						"name": "alpha-3",
+						"type": "String"
+					},
+					{
+						"name": "country-code",
+						"type": "String"
+					},
+					{
+						"name": "iso_3166-2",
+						"type": "String"
+					},
+					{
+						"name": "region",
+						"type": "String"
+					},
+					{
+						"name": "sub-region",
+						"type": "String"
+					},
+					{
+						"name": "intermediate-region",
+						"type": "String"
+					},
+					{
+						"name": "region-code",
+						"type": "String"
+					},
+					{
+						"name": "sub-region-code",
+						"type": "String"
+					},
+					{
+						"name": "intermediate-region-code",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/unstatisticsqlsaapdevlinkedservice')]"
+				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_csv_uncrime')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "unstatisticstac",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Container": {
+						"type": "string",
+						"defaultValue": "unstatistic-sourcefile"
+					},
+					"Path": {
+						"type": "string",
+						"defaultValue": "CrimeStat.Source.UNCrime"
+					},
+					"FileName": {
+						"type": "string",
+						"defaultValue": "burglary.csv"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().Path",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_csv_uncrime_folder')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "unstatisticstac",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Container": {
+						"type": "string",
+						"defaultValue": "unstatistic-sourcefile"
+					},
+					"Path": {
+						"type": "string",
+						"defaultValue": "CrimeStat.Source.UNCrime"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": {
+							"value": "@dataset().Path",
+							"type": "Expression"
+						},
+						"container": {
+							"value": "@dataset().Container",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/src_scv_population')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "unstatisticstac",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "WorldBankPopulation.csv",
+						"folderPath": "CrimeStat.Source.WorldBank",
+						"container": "unstatistic-sourcefiles"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Country Name",
+						"type": "String"
+					},
+					{
+						"name": "Country Code",
+						"type": "String"
+					},
+					{
+						"name": "Indicator Name",
+						"type": "String"
+					},
+					{
+						"name": "Indicator Code",
+						"type": "String"
+					},
+					{
+						"name": "1960",
+						"type": "String"
+					},
+					{
+						"name": "1961",
+						"type": "String"
+					},
+					{
+						"name": "1962",
+						"type": "String"
+					},
+					{
+						"name": "1963",
+						"type": "String"
+					},
+					{
+						"name": "1964",
+						"type": "String"
+					},
+					{
+						"name": "1965",
+						"type": "String"
+					},
+					{
+						"name": "1966",
+						"type": "String"
+					},
+					{
+						"name": "1967",
+						"type": "String"
+					},
+					{
+						"name": "1968",
+						"type": "String"
+					},
+					{
+						"name": "1969",
+						"type": "String"
+					},
+					{
+						"name": "1970",
+						"type": "String"
+					},
+					{
+						"name": "1971",
+						"type": "String"
+					},
+					{
+						"name": "1972",
+						"type": "String"
+					},
+					{
+						"name": "1973",
+						"type": "String"
+					},
+					{
+						"name": "1974",
+						"type": "String"
+					},
+					{
+						"name": "1975",
+						"type": "String"
+					},
+					{
+						"name": "1976",
+						"type": "String"
+					},
+					{
+						"name": "1977",
+						"type": "String"
+					},
+					{
+						"name": "1978",
+						"type": "String"
+					},
+					{
+						"name": "1979",
+						"type": "String"
+					},
+					{
+						"name": "1980",
+						"type": "String"
+					},
+					{
+						"name": "1981",
+						"type": "String"
+					},
+					{
+						"name": "1982",
+						"type": "String"
+					},
+					{
+						"name": "1983",
+						"type": "String"
+					},
+					{
+						"name": "1984",
+						"type": "String"
+					},
+					{
+						"name": "1985",
+						"type": "String"
+					},
+					{
+						"name": "1986",
+						"type": "String"
+					},
+					{
+						"name": "1987",
+						"type": "String"
+					},
+					{
+						"name": "1988",
+						"type": "String"
+					},
+					{
+						"name": "1989",
+						"type": "String"
+					},
+					{
+						"name": "1990",
+						"type": "String"
+					},
+					{
+						"name": "1991",
+						"type": "String"
+					},
+					{
+						"name": "1992",
+						"type": "String"
+					},
+					{
+						"name": "1993",
+						"type": "String"
+					},
+					{
+						"name": "1994",
+						"type": "String"
+					},
+					{
+						"name": "1995",
+						"type": "String"
+					},
+					{
+						"name": "1996",
+						"type": "String"
+					},
+					{
+						"name": "1997",
+						"type": "String"
+					},
+					{
+						"name": "1998",
+						"type": "String"
+					},
+					{
+						"name": "1999",
+						"type": "String"
+					},
+					{
+						"name": "2000",
+						"type": "String"
+					},
+					{
+						"name": "2001",
+						"type": "String"
+					},
+					{
+						"name": "2002",
+						"type": "String"
+					},
+					{
+						"name": "2003",
+						"type": "String"
+					},
+					{
+						"name": "2004",
+						"type": "String"
+					},
+					{
+						"name": "2005",
+						"type": "String"
+					},
+					{
+						"name": "2006",
+						"type": "String"
+					},
+					{
+						"name": "2007",
+						"type": "String"
+					},
+					{
+						"name": "2008",
+						"type": "String"
+					},
+					{
+						"name": "2009",
+						"type": "String"
+					},
+					{
+						"name": "2010",
+						"type": "String"
+					},
+					{
+						"name": "2011",
+						"type": "String"
+					},
+					{
+						"name": "2012",
+						"type": "String"
+					},
+					{
+						"name": "2013",
+						"type": "String"
+					},
+					{
+						"name": "2014",
+						"type": "String"
+					},
+					{
+						"name": "2015",
+						"type": "String"
+					},
+					{
+						"name": "2016",
+						"type": "String"
+					},
+					{
+						"name": "2017",
+						"type": "String"
+					},
+					{
+						"name": "2018",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/unstatisticstac')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/msbiazurelinkedservicekeyvault')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "unstatistickyvtapp",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "[parameters('msbiazurelinkedservicekeyvault_properties_typeProperties_connectionString_secretName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/unstatistickyvtapp')]"
 			]
 		},
 		{
@@ -1098,6 +1213,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"parameters": {
 					"cw_items": {
 						"type": "Array",
@@ -2091,6 +2210,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"variables": {
 					"PipelineExecutionDescription": {
 						"type": "String",
@@ -3047,6 +3170,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"variables": {
 					"PipelineExecutionDescription": {
 						"type": "String",
@@ -3342,6 +3469,10 @@
 						}
 					}
 				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
 				"parameters": {
 					"Container": {
 						"type": "string",
@@ -3378,41 +3509,6 @@
 				"[concat(variables('factoryId'), '/datasets/dst_sql_uncrime_untyped')]",
 				"[concat(variables('factoryId'), '/linkedServices/unstatisticsqlsaapdevlinkedservice')]",
 				"[concat(variables('factoryId'), '/datasets/dst_sql_dummy')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/first_trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "first_pipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Day",
-						"interval": 1,
-						"startTime": "2021-05-11T09:32:00Z",
-						"timeZone": "UTC",
-						"schedule": {
-							"hours": [
-								15
-							]
-						}
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/first_pipeline')]"
 			]
 		}
 	]
