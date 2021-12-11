@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach_1o1",
+				"name": "ForEach_92c",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -14,7 +14,7 @@
 					},
 					"activities": [
 						{
-							"name": "Copy_1o1",
+							"name": "Copy_92c",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
@@ -52,7 +52,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SourceDataset_1o1",
+									"referenceName": "SourceDataset_92c",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_table": "@item().source.table"
@@ -61,7 +61,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "DestinationDataset_1o1",
+									"referenceName": "DestinationDataset_92c",
 									"type": "DatasetReference",
 									"parameters": {
 										"cw_table": "@item().destination.table"
