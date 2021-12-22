@@ -1,6 +1,7 @@
 {
 	"name": "first_pipeline",
 	"properties": {
+		"description": "new description",
 		"activities": [
 			{
 				"name": "ForEach_1o1",
