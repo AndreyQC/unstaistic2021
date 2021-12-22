@@ -19,13 +19,13 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'unstatisticstac'"
 		},
-		"unstatistickyvtapp_properties_typeProperties_baseUrl": {
-			"type": "string",
-			"defaultValue": "https://unstatistickyvtappdev.vault.azure.net/"
-		},
 		"msbiazurelinkedservicekeyvault_properties_typeProperties_connectionString_secretName": {
 			"type": "string",
 			"defaultValue": "unstatisticdwh-connectionstring"
+		},
+		"unstatistickyvtapp_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://unstatistickyvtappdev.vault.azure.net/"
 		},
 		"containerUri": {
 			"type": "string",
