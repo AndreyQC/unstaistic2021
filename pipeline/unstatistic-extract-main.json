@@ -1,7 +1,7 @@
 {
 	"name": "unstatistic-extract-main",
 	"properties": {
-		"description": "orchestrator of extract",
+		"description": "orchestrator of extract\n\nsome new string",
 		"activities": [
 			{
 				"name": "SP PipelineExecutionHistory_Create",
@@ -33,10 +33,6 @@
 							"type": "String"
 						}
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "unstatisticsqlsashdevlinkedservice",
-					"type": "LinkedServiceReference"
 				}
 			},
 			{
@@ -90,10 +86,6 @@
 							"type": "String"
 						}
 					}
-				},
-				"linkedServiceName": {
-					"referenceName": "unstatisticsqlsashdevlinkedservice",
-					"type": "LinkedServiceReference"
 				}
 			},
 			{
